@@ -1,0 +1,320 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+%
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[newfloat]{minted}
+% Line numbers not flowing out of the margin
+\setminted{numbersep=5pt, xleftmargin=12pt}
+
+%\usemintedstyle{bw} %black and white style
+%\usemintedstyle{vs} %visual studio
+%\usemintedstyle{friendlygrayscale} % custom style - submitted as pull request https://bitbucket.org/birkenfeld/pygments-main/pull-requests/748/add-style-friendly-grayscale/diff
+%\usemintedstyle{friendly}
+%\usemintedstyle{eclipse} %http://www.jevon.org/wiki/Eclipse_Pygments_Style
+%\usemintedstyle{autumn}
+%\usemintedstyle{rrt}
+%\usemintedstyle{borland}
+
+\usepackage{hyperref}
+% Enable hyperref without colors and without bookmarks
+\hypersetup{hidelinks,
+  colorlinks=true,
+  allcolors=black,
+  pdfstartview=Fit,
+  breaklinks=true}
+%
+%enable \cref{...} and \Cref{...} instead of \ref: Type of reference included in the link
+\usepackage[capitalise,nameinlink]{cleveref}
+% Enable correct jumping to figures when referencing
+\usepackage[all]{hypcap}
+\crefname{section}{Sect.}{Sect.}
+\Crefname{section}{Section}{Sections}
+\crefname{listing}{\lstlistingname}{\lstlistingname}
+\Crefname{listing}{Listing}{Listings}
+
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+%
+\title{Direct And Automatic File Transfer via WebRTC}
+\subtitle{A secure alternative to email attachments}
+%
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\author{Robin Lunde\inst{1} \and
+Keiji Takeda\inst{1} \and Keisei Fujiwara{2}}
+%
+\authorrunning{R. Lunde et al.}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Keio University Shonan Fujisawa Campus\\ Kanagawa Prefecture, Fujisawa, Endo, 5322\\ 252-0882, Japan\\
+\email{robin@keio.jp}\\
+\email{keiji@sfc.keio.ac.jp}\\
+\and Hitachi, Ltd. Research \& Development Group
+Kanagawa Prefecture, Yokohama, Totsuka, Yoshida-cho\\ 292
+244-0817 Japan\\
+\email{Keisei.fujiwara.ud@hitachi.com}\\
+}
+%
+\maketitle              % typeset the header of the contribution
+\begin{abstract}
+In today's technical environment there are countless new and secure ways to send files over the Internet. Yet most people still use traditional, outdated e-mail attachments to share files. This paper will propose a new system as an alternative to e-mail attachments, that seek to improve overall security and usability. We suggest a system utilizing the web of trust model combined with WebRTCs peer to peer functionality.  By using the web of trust model, the end-user gets more control over whom he trusts, while simultaneously avoiding the problem of having to authenticate users against a central server or service. The P2P functionality of WebRTC allows for the direct transfer of files between users, avoiding the need for servers to store the files in transit. This drastically reduces the risk of an attacker gaining access to the file while also optimizing transfer-speed. We are working on an implementing this in an application called SendIt, to demonstrate the feasibility of the proposed system.
+%
+\keywords{Usable security  \and Real World Cryptography  \and WebRTC \and Trust management \and File transfer} 
+\end{abstract}
+%
+%
+\section{Introduction}
+%
+% 1.1 Motivation
+\subsection{Motivation and contribution}
+This paper seeks to combine the advantages of P2P (\textit{Peer to Peer}) technology with the web of trust model, to increase every-day users efficiency and security, when transferring files over the Internet. The goal is to utilize new technology to improve the current situation, while keeping it easy to use. It is not rare that the decryption-key and cipher is sent over the same channel when sharing encrypted files. This holds true even for security specialists! This signals that there is a lack of good implementations currently available. 
+
+There is also a clear global trend towards higher requirements regarding data protection and handling regulations, as demonstrated by the EU's new General Data Protection Regulation \cite{law_gdpr,ar_gdpr} and Special Publication 800-171 in the US.\cite{law_sp800} In other words, there is a strong demand to minimize exposure of personal data. With this as motivation, this paper seeks to find solutions that is in compliance with these trends while also keeping in mind the original intended model behind the internet. The Internet began as a decentralized network but has gradually converged in to a more centralized network of servers.\cite{ar_decent} The goal is to break with this development and move towards a decentralized system where central services are only used when strictly necessary.
+
+SendIt is an application that is simple to use and improves the current conditions regarding e-mail attachments. The intention behind making SendIt is to demonstrate how this new technology can be used to meet the regulations and be in compliance with the model mentioned above. It is also to show that even people unfamiliar with the technology, can utilize it to protect their privacy and improve their overall security while transferring files.   
+%
+%P2P
+\subsubsection{P2P:} 
+When transferring files between two end-users there is no logical reason to involve any mediator, and as such P2P communication emerges as the logical choice. In current e-mail systems, the file will reside in at least three locations: respectively on the sender's file system, on the e-mail exchange server and on the receiver's file system. A recent solution that is growing more popular, is storing the file in the cloud instead of on the e-mail exchange server. In contrast, when using SendIt the file will not reside anywhere except on the senders and receivers computers, as is the intention when transferring a file.
+%
+% Attack Mitigation
+\subsubsection{Attack Mitigation:}
+Another benefit of switching to direct communication is that it reduces an attackers options significantly when trying to steal information. First of all, there is two less places for the attacker to listen for data, as there is no information to the e-mail server nor from the e-mail server (regarding the file), because the only information that is sent via this channel is the connection details. The communication is also done in a much shorter timespan, as information about the file is only available once both parties are online and ready to start the transfer. These changes mean that the attack surface is lower compared to regular systems. WebRTCs P2P-communication is done over DTLS-SRTP (\textit{Datagram Transport Layer Security over Secure Real-time Transport Protocol}) or DTLS-SCTP (\textit{Datagram Transport Layer Security over Stream Control Transmission Protocol}) by default\cite{ar_webrtc_dc}, which means passive listening attacks are not effective, even if the attacker can monitor one or both parties.
+
+SendIt also reduces the threat and impact of automatic spreading of malicious files, as is currently a common attack-pattern. This is because it requires user-interaction on both ends for the transfer to take place. Also, there is no way to automatically forward files since SendIt does not have this functionality. There is also no support for communication other than one-to-one, which reduces the rate at which the threat can spread significantly.
+Finally, SendIt is a local program and does not connect to the internet before actively starting a file transfer. Once it does connect to the internet, it does so for a very limited time, and in an encrypted manner. This allows for no external tampering or code-manipulation at runtime. The fact that there is no server of any kind involved, also means that there is no way for an attacker to manipulate or leverage trust in the server to his advantage, as is an issue in server-based solutions.
+%
+%Trust management
+\subsubsection{Trust management:}
+While these improvements are good, SendIt now lacks someone to trust. In common use-case scenarios the browser places trust in the website. This is commonly achieved using the PKI-model (\textit{Public Key Infrastructure}). Since there is no server involved in in the other parts of the solution, it makes little sense to involve one just for authentication users. As such the system is based on the web of trust model originally proposed in combination with PGP (\textit{Pretty Good Privacy}).\cite{ar_pgp} This allows for authentication of users without having a central authority verifying each identity. Trust is built over time and corroborated by other users. This allows for a flexible system that also has somewhat trusted entities and can authenticate these entities reliably. There exists known issues with this solution as well, but this paper will propose ways to handle such issues in a tolerable manner.
+ 
+The main advantages of this model is that each user can decide which level of trust is satisfactory. The system will rate each identity based on certain criteria and assign each identity a level of trust. This trust will be reputation-based and will exist as a product of all interactions in the system. There will be no centralized management, but the system will naturally share the reputation of each identity and keep an overview of each identity's reputation. This system also allows for the use of different identities depending on who the other end-point is.
+
+The plan is for SendIt to display the level of trust, for the identity of the other end-point. This is so the user can make an individual decision for each connection. This can be turned off in the options menu. It allows for a flexible system where the user is in control of each interaction, without feeling overwhelmed by too much information, which is fitting for this use.
+%
+%Following sections
+\subsubsection{Following sections:}
+This paper will continue by reviewing related works in \Cref{sec:relatedwork}. \Cref{sec:} then seeks to clarify the implementation and theory behind SendIt. Each component will be outlined and explained, in regards to the different approaches and the chosen implementation, with both its positive and negative aspects. Then the results, impact and limitations of SendIt will be discussed in \Cref{sec:results}. Afterwards  a discussion of future work will follow in (\cref{sec:futurework}). The paper is then rounded off with a conclusion in \Cref{sec:conclusion}.
+%
+%2
+\section{Related work}
+\label{sec:relatedwork}
+%
+The most important work related to the proposed solutions is PGP \cite{ar_pgp} and WebRTC \cite{ar_webrtc} as well as DataChannels \cite{ar_webrtc_dc,url_webrtc_data}.
+The research and implementations stemming from these papers are vital for the choices and implementation made. PGP and WebRTC are the groundwork upon which the system is built. The DataChannels, as part of WebRTC, is also important to make the transfer of files easy and reliable.
+
+There also exist solutions available and under development that resembles SendIt. FireFox Send\cite{url_firesend} is a quite recent release (Jan. 8th 2017 ), that also runs on NodeJs. It aims to make sending files easier, in an encrypted fashion. They have chosen to use a cloud service to store the file. The link expires after 24 hours or the indicated number of downloads. This is in contrast to SendIt's direct solution.
+
+There is also I2P-Bote, which is a solution for sending e-mails in an encrypted and secure fashion. Unfortunately, this solution has a few issues. Namely, it does not work together with already existing systems. Only people using this program can communicate with each other. However, there exists an add-on for Thunderbird. I2P-Bote is also hard to use, and even the instructions are difficult to understand for people without a technical background.\cite{url_I2PBote,url_I2PInfo}
+
+There is also an existing implementation that was used as a reference for SendIt. The Serverless-WebRTC solution \cite{url_webrtc_ex} was what sparked the idea of making a system no longer depending on servers, for sharing files. The solution is quite basic, but is a good proof of concept.
+%
+%3. TODO RENAME
+%Proposed system and usage
+\section{Foo}
+\label{sec:}
+
+SendIt's primary goal is to be an easy to use application for improving security when transfering files. It aims to reduce the risk of data theft while still being usable by people lacking techincal insight.
+
+SendIt is a program that aims to directly connect two end-points together. The optimal solution is a solution with no server-involvement at all. Only direct, P2P communication between the nodes. Unfortunately, in today's network landscape, this is not something that can be easily achieved. Once IPv6 (Internet Protocol Version 6) becomes the primary communications protocol, this will change as the need for NAT (Network Address Translation) and NAT-traversal is no longer neccesary. Until then, the need for a system that allows for direct communications without servers is present and sought after.
+
+As a direct consequence of this decentralized system, there is no authentication mechanism. This leads to the need to include a solution which has some autentication method, to increase the users confidence that the data is sent to the intended receiver. To keep the system simple, it is important that this authentication system feels intuitive to the users.
+
+
+
+%4
+\section{Results}
+\label{sec:results}
+%
+\begin{figure}
+  \includegraphics[width=\textwidth]{experiment1_success-rate_time_300s_dark}
+  \caption{Delayed WebRTC connection setup success rate} \label{fig:fig5}
+\end{figure}
+%
+In the experiment shown in \Cref{fig:fig5}, the success-rate of connections between a server and a client was measured. The connection was created using WebRTC with a varying delay before the offer and/or answer was shared. The success-rate is represented on the vertical axis, and the total delay before trying to create the connection on the horizontal axis. In this experiment the goal was to mimic the setup between two end-points using SendIt, and as such the connection setup is done in the same way. The server was assigned the role of Sender, for all connections. The terminology is as follows:\\
+{\bfseries Senders delay}(\textit{S}){\bfseries :} is delay from creation of the offer, until it is received by the client.\\
+{\bfseries Receivers delay}(\textit{R}){\bfseries :} is delay from creation of the answer, until it is received by the server.\\
+{\bfseries Shared delay:} is the delay split equally between both of the above. If the delay is 10 seconds, it means 5 seconds senders delay and 5 seconds receivers delay, for a total of 10 seconds delay.
+
+The size of the dataset is 25 connections.The connections that failed all tests was removed because the probability of failing all tests and still being a supported connection is very low. These connections are assumed not to be in the target group of computers eligible to use SendIt, and as such would skew the results. 
+
+Now lets discuss the findings and implications of \Cref{fig:fig5}. As seen, \textit{S} is fairly irrelevant. Even at 300 seconds (5 minutes) the success rate is 72\%. \textit{R} is much more important. At a 5 seconds delay, \textit{S} and \textit{R} have the same success rate. However, at 30 seconds, there is a gap of 36\% (\textit{S}=88\%, \textit{R}=52\%). This indicates that the problem with keeping a connection open largely resides on the receivers end. Splitting the delay equally between \textit{S} and \textit{R} (as indicated by 'Shared Delay'), seem to improve connectivity compared to \textit{S}, which corroborates the theory that \textit{S} has more influence on the success rate of creating a connection.
+
+One factor that might influence this result, is that in this experiment the test-server always acted as \textit{S}. The server may have a more stable internet-connection than most end-points. As such, another experiment should be done where the server acts as \textit{R}, so the results can be compared and the conclusion can be re-evaluated.
+%
+%5
+\section{Future work}
+\label{sec:futurework}
+The need for better connectivity is quite clear from the current situation. While different implementations are possible, we believe that keeping with the core philosophy of a decentralized internet is important. As such, finding ways to improve connectivity without having to rely on a server is something that would improve the solution.
+
+The problem of bad connectivity can also be negated by finding a way to let end-points reconnect without having to go through a whole new connection setup phase.
+
+Another area where the solution is suboptimal is the initial trusted exchange. Finding a way to share this initial exchange in a way that ensures confidentiality and integrity without including a server would also heavily improve the system.
+
+Finally, there is always room for improvement when it comes to trust building and evaluation. Optimizing the algorithms and policies to make sure that the representation of trust for each identity is optimal, will always be a challenge.
+%
+% 6
+\section{Conclusion}
+\label{sec:conclusion}
+In this paper we have proposed a new prototype and system for transferring files. SendIt is using P2P communication to avoid having to go through a server to share files. Since this makes the system vulnerable to multiple kinds of attacks, an authentication scheme based on public key cryptography is suggested.
+
+Since there is no central authority to vouch for any of the keys or identities used, the solution combines the above technologies with a trust-system based on the web of trust model. This is a reputation based, decentralized model which allows each user to make their own choices, while still having a shared understanding of how trustworthy each identity is. All in all, we believe that SendIt is a good alternative to the way current e-mail file attachments work, while still having some weaknesses that should be looked in to.\\
+%
+\begin{thebibliography}{8}
+%1
+\bibitem{law_gdpr}
+Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation) (Text with EEA relevance). (2016).
+
+%2
+\bibitem{ar_gdpr}
+Kiesel, J.: GDPR Compliance: Summary \& Requirements You Need to Know, \url{https://linfordco.com/blog/gdpr-compliance-requirements/}, (2017).
+
+%3
+\bibitem{law_sp800}
+Ross, R., Viscuso, P., Guissanie, G., Dempsey, K., Riddle, M.: Protecting controlled unclassified information in nonfederal systems and organizations. National Institute of Standards and Technology, Gaithersburg, MD (2016).
+
+%1
+\bibitem{ar_decent}
+Ibanez, L.-D., Simperl, E., Gandon, F., Story, H.: Redecentralizing the Web with Distributed Ledgers. IEEE Intelligent Systems. 32, 92–95 (2017).
+
+%2
+\bibitem{ar_webrtc_dc}
+Jesup, R., Loreto, S. and Tuexen, M.: WebRTC data channels. draft-ietf-rtcweb-data-channel-13. txt, work in progress. (2015)
+
+%3
+\bibitem{ar_pgp}
+Alfarez A.: The PGP Trust Model. EDI-Forum: the Journal of Electronic Commerce \textbf{10}(3), 27--31 (1997)
+
+%4
+\bibitem{ar_webrtc}
+Bergkvist, A., Burnett, D.C., Jennings, C., Narayanan, A. and Aboba, B.: Webrtc 1.0: Real-time communication between browsers. Working draft, W3C, 91. (2012)
+
+%5
+\bibitem{url_webrtc_data}
+Holmberg, H.-C.: Web Real-Time Data Transport, \url{https://www.theseus.fi/bitstream/handle/10024/94759/FinalThesis\_hanschrh\_final.pdf?sequence=1\&isAllowed=y}, (2015).
+
+%6
+\bibitem{url_firesend}
+Firefox Test Pilot - Send, \url{https://testpilot.firefox.com/experiments/send/}. Last accessed 20 Mar 2018
+
+%7
+\bibitem{url_I2PBote}
+I2P-Bote, \url{https://i2pbote.xyz/}, Last accessed 20 Mar 2018
+
+%8
+\bibitem{url_I2PInfo}
+I2P-Bote Introduction and Tutorial | Darknet Email, \url{https://thetinhat.com/tutorials/messaging/i2pbote.html}, Last accessed 20 Mar 2018
+
+%9
+\bibitem{url_webrtc_ex}
+Serverless-webRTC, \url{https://github.com/cjb/serverless-webrtc}, Last accessed 20 Mar 2018
+
+%10
+\bibitem{url_pgp}
+How PGP works, \url{https://users.ece.cmu.edu/~adrian/630-f04/PGP-intro.html}, Last accessed 20 Mar 2018
+
+%11
+\bibitem{b_pgp}
+Zimmermann, P. R. T.:The official PGP user's guide. MIT Press Cambridge,
+USA (1995)
+
+%12
+\bibitem{ar_webcrypto}
+Sleevi, R. and Watson, M.: Web cryptography API. W3C candidate recommendation, W3C. (2014)
+
+%13
+\bibitem{url_webcr_supp}
+Web Crypto API, \url{https://developer.mozilla.org/en-US/docs/Web/API/Web\_Crypto\_API}, Last accessed 20 Mar 2018
+
+%14
+\bibitem{ar_whois}
+Li, L., Chou, W., Qiu, Z., Cai, T.: Who Is Calling Which Page on the Web? IEEE Internet Computing. 18, 26–33 (2014).
+
+%15
+\bibitem{a_trustserv}
+J\o sang A., Ismail R., Boyd C.: A survey of trust and reputation systems for online service provision, Decision Support Systems  \textbf{43}(2), 618--644 (2007). \doi{10.1016/j.dss.2005.05.019}
+
+%16
+\bibitem{lncs_sybil}
+Douceur J.R.: The Sybil Attack. In: Druschel P., Kaashoek F., Rowstron A. (eds) Peer-to-Peer Systems. IPTPS 2002. Lecture Notes in Computer Science, vol 2429. pp. 251-260 Springer, Berlin, Heidelberg  (2002).
+
+%17
+\bibitem{lcns_semantic}
+J\o sang, A. and Pope, S.: Semantic constraints for trust transitivity. In Proceedings of the 2nd Asia-Pacific conference on Conceptual modelling, vol 43. pp. 59-68. Australian Computer Society, Inc. (2005)
+
+%18
+\bibitem{ar_stun}
+Rosenberg, J., Mahy, R., Huitema, C., and Weinberger, J.: STUN-simple traversal of UDP through network address translators. (2003)
+
+%19
+\bibitem{ar_turn}
+Matthews, P., Mahy, R., and Rosenberg, J.: Traversal using relays around nat (turn): Relay extensions to session traversal utilities for nat (stun). (2010)
+
+%20
+\bibitem{ar_ice}
+Rosenberg, J.: Interactive connectivity establishment (ICE): A protocol for network address translator (NAT) traversal for offer/answer protocols. (2010)
+
+%21
+\bibitem{ar_webrtc_sign}
+Dutton, S.: Getting started with WebRTC. HTML5 Rocks \textbf{23} (2012).
+
+%22
+\bibitem{ar_ice_trickle}
+Ivov, E., Rescorla, E. and Uberti, J.: Trickle ICE: incremental provisioning of candidates for the interactive connectivity establishment (ICE) protocol. (2013)
+
+%23
+\bibitem{ar_sdp}
+Handley M, Perkins C, Jacobson V.: SDP: session description protocol. (2006)
+
+%24
+\bibitem{url_node}
+Node.js v9.8.0 Documentation, \url{https://nodejs.org/docs/latest-v7.x/api/}, Last accessed 20 Mar 2018
+
+%25
+\bibitem{url_v8}
+Chrome V8, url{https://developers.google.com/v8/}, Last accessed 20 Mar 2018
+
+%26
+\bibitem{url_pubshare}
+PubShare, \url{https://github.com/tskimmett/rtc-pubnub-fileshare}, Last accessed 20 Mar 2018
+
+%27
+\bibitem{url_electron}
+Electron Documentation , \url{https://electronjs.org/docs/tutorial/about}, Last accessed 20 Mar 2018
+
+%28
+\bibitem{url_clipboardy}
+Clipboardy, \url{https://github.com/sindresorhus/clipboardy}, Last accessed 20 Mar 2018
+
+%29
+\bibitem{url_ele-prompt}
+Electron-prompt, \url{https://github.com/sperrichon/electron-prompt}, Last accessed 20 Mar 2018
+
+%30
+\bibitem{url_webrtc_chrome}
+Chrome WebRTC, \url{https://webrtc.org/web-apis/chrome/}, Last accessed 20 Mar 2018
+
+%31
+\bibitem{url_jQuery}
+jQuery, \url{https://jquery.com/}, Last accessed 20 Mar 2018
+
+%32
+\bibitem{url_bootstrap}
+Bootstrap, \url{https://getbootstrap.com/}, Last accessed 20 Mar 2018
+
+%
+\end{thebibliography}
+\end{document}

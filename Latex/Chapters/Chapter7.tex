@@ -1,0 +1,109 @@
+\chapter{System evaluation} % Main chapter title
+%
+\label{Chapter7} % For referencing the chapter elsewhere, use \ref{Chapter7} 
+%
+To understand the contribution and usability of SendIt, an analysis of existing solutions is needed. By comparing SendIt with existing solutions it is possible to get an idea of what has been improved, what stayed the same, and what still needs to be improved. In the following section the e-mail system, a generic SNS system and SendIt will all be evaluated and analyzed.
+
+ It will also discuss and compare SendIt to other solutions, and evaluate how SendIt matches up against these solutions.
+%
+\section{Evaluation of SendIt}
+%
+  SendIt has fewer weaknesses than the other two systems. The main advantage is the direct transfer, which minimizes the attack surface compared to the other two solutions. This evaluation will not include all attacks made possible by the technology chosen, but rather focus on the weaknesses that come as a consequence of the proposed system. By this it is meant that attacks that are present in all JavaScript solutions will not be discussed. If the attack is possible because of the way JavaScript is used in this solution, it will be included.
+%
+  %First trust!!!
+  \subsection{First trust}
+  %
+  The main weakness, as mentioned previously, is the first trust. This can allow an attacker to appear as the legitimate owner of an identity, without this being the case. This is a risk that any user should be aware of, as it is a critical part of the system. Even though it is a part of the design choice, it has to be acknowledged that this is less than optimal.
+
+  The mitigation for such attacks is split in two parts. The first is relying on the user to evaluate whether the user is legitimate. By using social cues like timing, each user should evaluate if it is likely that the other identity would initiate a transfer. One can also contact the other endpoint and confirm that it is actually them. This is, of course, only necessary for the first connection.
+
+  The second is the trust model, which is an automatic part of the system. It combats this issue by sharing information and allowing users to have as much data as possible, for all identities. This allows for detection of false identities and will eventually make these identities untrusted entities in the whole system.
+%
+  \subsection{DHT}
+  While P2P transfer is direct communication between two endpoints, it needs some way to set up the connection. Traditionally this has been done using servers or DHT networks. Since the whole point is to avoid using servers, the only option left is DHT. DHT solutions rely on connecting to specific endpoints, called bootstrapping, to enter the network. This is predictable behavior that can be exploited by attackers, and it also increases the difficulty of using the system.
+
+  As such, the system suggested in this thesis leaves it up to the end users to decide how to share the information, as it is unpredictable and allows for easier usage of the system. It removes the need for any bootstrapping or server, and does not specify any set way to share the connection information.
+  
+  %ACS!!!
+  \subsection{ACS}
+  %
+  Another attack vector is the ACS server. If it is not trusted, it can pose a security risk, as the endpoint has to rely on the fact that the ACS server relays the data to the correct recipient. If the data sent is encrypted, it will not pose any immediate risk, but it will stop the endpoint from connecting to anyone, as the other endpoint will not get authenticated properly. If it is the first time these endpoints are connecting, however, it puts the victim at risk of being put in touch with the wrong identity.
+
+  The ACS server can also act as a logger that keeps track of which identities are communicating with each other. While not directly an attack, it can raise privacy issues, since it allows for monitoring of traffic. It can also be argued that it can be used for reconnaissance, which allows for a targeted attack on one of the endpoints. Because of this, endpoints should only use ACS servers they trust.
+
+  %MITM
+  The ACS server can also deploy MITM-attacks during the connection setup, which leads to the attacker gaining full access to the data transferred. The biggest problem with this type of attack is that, in most cases, it cannot be detected until after the data has already been shared and the attacker has full access to it. It will eventually be detected by the trust system, but at that point it might already be too late. While there is also a possibility for this to happen during the connection setup of the Serverless mode, it is much harder to do, since there is no pre-determined channel for sharing the Offer/Answer, and as such, the attacker has no set point to attack. 
+%
+  %XSS
+  \subsection{Other}
+  Finally, there is a theoretical possibility of having XSS attacks executed in the client, since the Serverless mode relies on user input. While there are countermeasures deployed, one can never guarantee that there are no such security holes.
+
+%
+%
+\section{E-mail system comparison}
+\label{sec:email_syst}
+  %E-mail
+  %Anything is an improvement
+  Comparing the e-mail system to SendIt is a little like comparing your mailbox to a safe. While the mailbox can be locked and it can be made more secure, it is still outside your house, with no access control, not made to withstand attacks, and ultimately, it can just be stolen as a whole. In contrast, the safe is made to withstand attacks, and store your data privately.
+
+  In a similar fashion, e-mail was made to send and receive information, like a mailbox. SendIt is made to make this process secure against outside tampering and allow for minimal risk while exchanging information. To continue the analogy, it is like meeting the Sender with your safe, giving the Sender a small slot to put the mail in, that only fits the letter you expect to receive, and immediately returning back to the safety of your house. SendIt would be the safe in the aforementioned scenario. To summarize, the email system offers some secure solutions, but guarantees none. In practice, that means one should assume that none is applied. Therefore, anything is an improvement.
+%
+%
+  \subsection{Direct transfer}
+  \label{sec:ev_dir}
+  %No temporary storage - direct transfer
+  The first major advantage SendIt has over traditional e-mails, is that it transfers the file directly. None of the issues stemming from files being stored in transit applies to SendIt. These issues range from attackers hacking the server and getting access to the files, to allowing attackers to monitor data going through the server, since the data will always pass through this point. As a general rule, a resource is more secure, the fewer copies exist, since it limits the attack surface.
+
+  %Files will be broken if given enough time
+  Another point to take into consideration is that even if only encrypted data is stored on a server, if an attacker gets access to the data, it is only a question of how long it takes to break the encryption. As such, minimizing the risk of leaking any data should be considered critical. This is why direct transfer of files offer such an advantage.
+
+  %Lower attack surface - direct transfer (TIME!)
+  The attack surface which is exposed is also important to evaluate. Having a server store the files, means the attack surface is quite large, since it is always online. With SendIt's direct transfer function, the file is only available during transfer. The time difference for how long the file is available to be attacked is huge. As such, this is another advantage of direct transfer, since the attack surface is significantly reduced.
+%
+  \subsection{Authentication}
+  %No possibility to impersonate real Sender
+  Sender and Receiver guarantee is another advantage of SendIt. In the e-mail system, the Sender's identity can be forged easily, which is not the case for SendIt. It also has some issues where the data sent is not kept confidential and can easily be stolen by a passive listening attack. These two combined make phishing attacks, as well as targeted exploits, easier to create, since you know what data or information the endpoint is seeking or expecting. By sending this data from a forged address, the chances of successful attacks increase. The e-mail system has S/MIME which allows for authentication, but as discussed in \Cref{sec:intro_email}, it is rarely used and is not user friendly.
+  %
+  \subsection{Content control}
+  %All content received
+  In the ordinary e-mail system, one is also not able to stop unwanted content. If someone sends an e-mail attachment, it will be delivered to the receiver's PC, or at least their e-mail server. This is unfortunate, since receiving malicious files may cause them to be executed at a later time, or by an unintended action. It is also possible that they may execute without the user knowingly doing so. As such, it is optimal for the user to be able to stop the transfer of unwanted files, something which SendIt supports.
+  %Automated spreading
+  Automatic spreading of malicious files is a big problem today. It is spread to all the victim's contacts and keeps spreading in a similar fashion. While SendIt has no direct solution to mitigate this, the fact that it does not support multicast, and that the files cannot be automatically received, will naturally take care of resolving this issue.
+%
+%
+  \subsection{Connection setup}
+  \label{sec:ev_con}
+  % - Needs connection setup
+  The disadvantage of SendIt is that it is required to complete a connection setup phase in order to communicate with the other endpoint. The e-mail system has no such need and one can easily transfer information at any time without the user having to worry about the connection setup. This is because all communication occurs between the client and a server that is publicly available.
+%
+  \subsection{Synchronous connection}
+  % - Synchronous
+  Another case where SendIt exhibits different behavior is during the actual transfer. While the advantages of direct transfers have been clearly indicated, SendIt does lack support for asynchronous transfers. This is a point where the regular e-mail solution has the edge over SendIt. It can be argued, however, that it is a small obstacle to overcome, for such an increase in security.
+%
+  \subsection{First trust}
+  \label{sec:ev_first}
+  % - First trust
+  Finally, the e-mail system does not have to rely on the trusted first setup, that SendIt does. In the case that the e-mail system uses the security features available, it relies on PKI for the initial trust. This choice of a central service makes sense in the e-mail system which relies on servers, but not for SendIt.
+%
+  %
+\section{SNS and Cloud systems comparison}
+  %SNS
+  While there is no one SNS or cloud based system to compare against, they all share certain functionality and design choices. As such, this generalization will be the model used for comparison. As discussed in \Cref{sec:ev_dir}, SendIt directly transfers the file, removing the need for central storage, thereby lowering the attack surface. While the original point is made in comparison to the e-mail system, this applies equally to SNS and Cloud based systems. This is why SendIt provides a clear use case and improvement to current systems.
+  %No temporary storage - direct transfer
+  %Files will be broken if given enough time
+  %Lower attack surface - direct transfer (TIME!)
+%
+  \subsection{False E2E encryption}
+  %'E2E encryption' not real - skype!
+  As mentioned in \Cref{sec:cloudetc} and shown in \Cref{fig:sns}, false E2E encryption is sometimes utilized in these systems. This is a scary thing, as a consumer of these services, because both you and your communication partner are unable to verify if the communication has true E2E encryption or not. Effectively, this is a MITM-attack by design. As such, when using these services, one should assume that the data can be decrypted and read by the service and whoever they disclose the data to. For SendIt, the public-key cryptography guarantees end-to-end encryption, since the keys are exchanged over P2P, which means no central service can tamper with the keys sent. 
+%
+  \subsection{Identity swapping}
+  %Hard to switch identities
+  Another thing that is hard to do in these systems is swap identities, if the user desires. One may not want to associate an identity with both work and private life, which means the need for several identities arises. This requires logging in and out, managing two sets of credentials, and keeping track of which identity is currently in use. For SendIt, all the user has to do is swap to the file containing the correct keys and the identity has been changed.
+%
+  \subsection{Other}
+  The points where SNS and Cloud based systems have clear advantages also resembles that of the e-mail system. The points made in \Cref{sec:ev_con} and \Cref{sec:ev_first} apply to these systems as well. For the first trust in these systems, they also rely on the PKI model, which is understandable, since they are also based around the server-client model.
+
+  These solutions do have the advantage of storing a backup of your files, which can be desired in certain situations. Though this can easily be done after the transfer has completed, which gives the user more control over how it is stored. As such, these solutions are more suited for regular files, not files with high requirements in regard to privacy and security.
+  % - Needs connection setup
+  % - First trust

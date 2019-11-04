@@ -1,0 +1,488 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Masters/Doctoral Thesis 
+% LaTeX Template
+% Version 2.5 (27/8/17)
+%
+% This template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Version 2.x major modifications by:
+% Vel (vel@latextemplates.com)
+%
+% This template is based on a template by:
+% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
+% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+english, % ngerman for German
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+%parskip, % Uncomment to add space between paragraphs
+%nohyperref, % Uncomment to not load the hyperref package
+headsepline, % Uncomment to get a line under the header
+%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
+]{MastersDoctoralThesis} % The class file specifying the document structure
+
+%Javascript language addition
+\usepackage{color}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{darkgray}{rgb}{0.4, 0.4, 0.4}
+%\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+\definecolor{orange}{rgb}{1,0.45,0.13}      
+\definecolor{olive}{rgb}{0.17,0.59,0.20}
+\definecolor{brown}{rgb}{0.69,0.31,0.31}
+\definecolor{purple}{rgb}{0.38,0.18,0.81}
+\definecolor{lightblue}{rgb}{0.1,0.57,0.7}
+\definecolor{lightred}{rgb}{1,0.4,0.5}
+\usepackage{upquote}
+\usepackage{listings}
+% CSS
+\lstdefinelanguage{CSS}{
+  keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function}, 
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  alsoletter={:},
+  alsodigit={-}
+}
+
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinelanguage{HTML5}{
+  language=html,
+  sensitive=true,   
+  alsoletter={<>=-},    
+  morecomment=[s]{<!-}{-->},
+  tag=[s],
+  otherkeywords={
+  % General
+  >,
+  % Standard tags
+    <!DOCTYPE,
+  </html, <html, <head, <title, </title, <style, </style, <link, </head, <meta, />,
+    % body
+    </body, <body,
+    % Divs
+    </div, <div, </div>, 
+    % Paragraphs
+    </p, <p, </p>,
+    % scripts
+    </script, <script,
+  % More tags...
+  <canvas, /canvas>, <svg, <rect, <animateTransform, </rect>, </svg>, <video, <source, <iframe, </iframe>, </video>, <image, </image>, <header, </header, <article, </article
+  },
+  ndkeywords={
+  % General
+  =,
+  % HTML attributes
+  charset=, src=, id=, width=, height=, style=, type=, rel=, href=,
+  % SVG attributes
+  fill=, attributeName=, begin=, dur=, from=, to=, poster=, controls=, x=, y=, repeatCount=, xlink:href=,
+  % properties
+  margin:, padding:, background-image:, border:, top:, left:, position:, width:, height:, margin-top:, margin-bottom:, font-size:, line-height:,
+    % CSS3 properties
+  transform:, -moz-transform:, -webkit-transform:,
+  animation:, -webkit-animation:,
+  transition:,  transition-duration:, transition-property:, transition-timing-function:,
+  }
+}
+
+\lstdefinestyle{htmlcssjs} {%
+  % General design
+%  backgroundcolor=\color{editorGray},
+  basicstyle={\footnotesize\ttfamily},   
+  frame=b,
+  % line-numbers
+  xleftmargin={0.75cm},
+  numbers=left,
+  stepnumber=1,
+  firstnumber=1,
+  numberfirstline=true, 
+  % Code design
+  identifierstyle=\color{black},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{editorGreen}\bfseries,
+  stringstyle=\color{editorOcher}\ttfamily,
+  commentstyle=\color{brown}\ttfamily,
+  % Code
+  language=HTML5,
+  alsolanguage=JavaScript,
+  alsodigit={.:;},  
+  tabsize=2,
+  showtabs=false,
+  showspaces=false,
+  showstringspaces=false,
+  extendedchars=true,
+  breaklines=true,
+  % German umlauts
+  literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+}
+%
+%--------------------------------------
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{mathpazo} % Use the Palatino font by default
+
+%\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the biber backend with the authoryear citation style (which resembles APA)
+\usepackage[backend=biber, natbib=true, style=numeric, sorting=none]{biblatex} %
+%Original biblatex - switch to biber?
+
+\usepackage{float}
+
+%changed!
+\addbibresource{References.bib} % The filename of the bibliography
+
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
+%Better ref
+\usepackage{hyperref}
+% Enable hyperref without colors and without bookmarks
+\hypersetup{hidelinks,
+  colorlinks=true,
+  allcolors=black,
+  pdfstartview=Fit,
+  breaklinks=true}
+\usepackage[capitalise,nameinlink]{cleveref}
+% Enable correct jumping to figures when referencing
+\usepackage[all]{hypcap}
+\crefname{section}{Sect.}{Sect.}
+\Crefname{section}{Section}{Sections}
+\crefname{listing}{\lstlistingname}{\lstlistingname}
+\Crefname{listing}{Listing}{Listings}
+
+%----------------------------------------------------------------------------------------
+%	MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	inner=2.5cm, % Inner margin
+	outer=3.8cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=1.5cm, % Top margin
+	bottom=1.5cm, % Bottom margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+
+%----------------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Master's Thesis} % Set document title
+\thesistitle{Direct File Transfer System via WebRTC\\\textit{An Alternative to E-mail Attachments with Improved Security}} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\supervisor{Dr. Keiji \textsc{Takeda}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{\href{https://vu.sfc.keio.ac.jp/faculty_profile/cgi/f_profile_e.cgi?id=859452959bdc256a}{Dr. Jun \textsc{Murai}}\\\href{https://vu.sfc.keio.ac.jp/faculty_profile/cgi/f_profile_e.cgi?id=173b9078ea37d21d}{Dr. Osamu \textsc{Nakamura}}} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\degree{Master of Media and Governance [M.M.G.]} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\author{Robin \textsc{Lunde}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+
+\subject{Information Security} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{Usable security	-	Trust management	-	\\Real world cryptography	-	WebRTC	-	File transfer} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{\href{https://www.keio.ac.jp/en/}{Keio University}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+
+\department{\href{https://www.sfc.keio.ac.jp/gsmg/en/}{Graduate School of Media and Governance}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+%\group{\href{http://researchgroup.university.com}{Research Group Name}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\faculty{\href{https://www.sfc.keio.ac.jp/en/}{Shonan Fujisawa Campus}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
+\AtBeginDocument{
+\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
+\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
+\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+\vspace*{.06\textheight}
+{\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
+\textsc{\Large Master Thesis}\\[0.5cm] % Thesis type
+
+\HRule \\[0.4cm] % Horizontal line
+{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+\HRule \\[1.5cm] % Horizontal line
+ 
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+\href{www.robinlunde.com}{\authorname} % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushright} \large
+\emph{Chief Examiner:} \\
+\href{https://vu.sfc.keio.ac.jp/faculty_profile/cgi/f_profile_e.cgi?id=4da5362a9eebedf5}{\supname}\\ % Supervisor name - remove the \href bracket to remove the link  
+\emph{Co-Examiners:} \\
+\examname\\
+\end{flushright}
+\end{minipage}\\[3cm]
+ 
+\vfill
+
+\large \textit{A thesis submitted in partial fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+\textit{in the}\\[0.4cm]
+%\groupname\\
+\deptname\\[2cm] % Research group name and department name
+ 
+\vfill
+
+{\large \today}\\[4cm] % Date
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+\vfill
+\end{center}
+\end{titlepage}
+
+%\cleardoublepage
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+%
+Utilizing WebRTC's P2P technology, this thesis will suggest an alternative to the way e-mail attachments currently work. In today's technical environment, there are countless new and secure ways to send files over the Internet. Yet most people still use the traditional, outdated e-mail attachment technology to share files. This thesis will propose a new system that seeks to improve overall security and usability of transferring files.
+
+The system will be evaluated against the current e-mail system, as well as cloud and SNS based solutions. The comparison will largely be focused on security and usability. This thesis will clearly show that the current e-mail system is not sufficient when it comes security, usability, or both. It will propose a solution that raises the standard of security and confidentiality, which improves the current conditions and offers an alternative solution.
+
+It suggests a system utilizing the web of trust model combined with WebRTC's P2P functionality. By using the web of trust model, the end-user gets more control over whom he trusts, while simultaneously avoiding the problem of having to authenticate users against a central server or service. The P2P functionality of WebRTC allows for the direct transfer of files between users, avoiding the need for servers to store the files in transit. This reduces the risk of an attacker gaining access to the file, while also optimizing transfer-speed. This system was implemented in a prototype to demonstrate the feasibility of the proposed system.
+\\
+\\
+\begin{center}
+{\bfseries \subjectname}\\
+{\bfseries Keywords:} \keywordnames
+\end{center}
+\end{abstract}
+
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+%----------------------------------------------------------------------------------------
+%	QUOTATION
+%----------------------------------------------------------------------------------------
+
+%\vspace*{0.2\textheight}
+\paragraph{}
+\paragraph{}
+\noindent\enquote{\itshape Without a struggle, there can be no progress.}\bigbreak
+
+\hfill -Frederick Douglass\\
+\paragraph{}
+%----------------------------------------------------------------------------------------
+%Acknowledgements!
+%
+I would like to start off by thanking my advisor, Keiji Takeda, for his patience and contributions to my research. His advice and guidance has helped me a lot, and allowed me to do the best I could. His encouragement and belief in my research is also the main reason I have been able to get this far. I especially appreciate his willingness to help in situations not related to research!\\
+
+Next, I would like to thank my family. Thank you Mom and Dad for letting me chose my own path! Going to Japan was a big change for me, and you have been nothing but supportive and optimistic, and for that I am really thankful. I would also like to thank my little brother, Benjamin, for giving me the idea of going to Japan. I would also like to give a special message to my Grandma:\\
+Kjære Mormor:\\
+Tusen takk for all hjelp og oppmuntring under studietiden. Vi ungdommen setter stor pris på at du alltid holder deg oppdatert og følger nøye med på hva vi driver med. Det er utrolig koselig og jeg setter stor pris på alle meldinger og postkort som kommer med tilfeldige mellomrom. Jeg er også takknemlig for alle bidrag og all støtte du har gitt oppgjennom årene. Tusen takk!\\
+
+Thank you to all my friends for all the good times. You have made me feel welcome and at home in Japan and given me someone to share my experiences with. I appreciate that a lot!\\
+
+In addition, I also want to thank the members of the MAUI-project as well as the members of Takeda-ken for their advice, friendliness and for suffering through my endless PowerPoint presentations.\\ 
+
+I would also like to thank my co-advisors Jun Murai and Osamu Nakamura, as well as our research partners at Hitachi for their valued advice. Your contributions and your guidance was truly appreciated.\\
+
+Finally, I would like to thank my girlfriend for her love and support! Thank you for all the help when I was stressed out, making dinner, doing laundry and everything else you did, so I could focus on my work. Thank you so much - I am not sure I would have survived without you!
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%	DEDICATION
+%----------------------------------------------------------------------------------------
+
+\dedicatory{Dedicated to my grandparents:\\ Kitt, Thor, Synnøve \& Arne} 
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+
+\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+%a
+\textbf{ACS} & \textbf{A}ssisted \textbf{C}onnection \textbf{S}etup\\
+\textbf{AES} & \textbf{A}dvanced \textbf{E}ncryption \textbf{S}tandard\\
+\textbf{API} & \textbf{A}pplication \textbf{P}rogramming \textbf{I}nterface\\
+%b
+%c
+\textbf{CA} & \textbf{C}ertificate \textbf{A}uthority\\
+%d
+\textbf{DHT} & \textbf{D}istributed \textbf{H}ash \textbf{T}able\\
+\textbf{DOS} & \textbf{D}enial \textbf{O}f \textbf{S}ervice\\
+\textbf{DTLS} & \textbf{D}atagram \textbf{T}ransport \textbf{L}ayer \textbf{S}ecurity\\
+%e
+\textbf{E-mail} & \textbf{E}lectronic-\textbf{mail}\\
+\textbf{E2E} & \textbf{E}nd \textbf{T}(w)o \textbf{E}nd\\
+\textbf{Etc.} & \textbf{Et} \textbf{C}etera\\
+%f
+%g
+\textbf{GCM} & \textbf{G}alois / \textbf{C}ounter \textbf{M}ode\\
+\textbf{GUI} & \textbf{G}raphical \textbf{U}ser \textbf{I}nterface\\
+%h
+\textbf{HTML} & \textbf{H}yper\textbf{T}ext \textbf{M}arkup \textbf{L}anguage\\
+\textbf{HTTP} & \textbf{H}yper\textbf{T}ext \textbf{T}ransfer \textbf{P}rotocol\\
+\textbf{HTTPS} & \textbf{H}yper\textbf{T}ext \textbf{T}ransfer \textbf{P}rotocol \textbf{S}ecure\\
+%i
+\textbf{ICE} & \textbf{I}nteractive \textbf{C}onnectivity \textbf{E}stablishment\\
+\textbf{IDP} & \textbf{ID}entity \textbf{P}rovider\\
+\textbf{IP} & \textbf{I}nternet \textbf{P}rotocol\\
+\textbf{IPv6} & \textbf{I}nternet \textbf{P}rotocol \textbf{v}ersion \textbf{6}\\
+\textbf{IV} & \textbf{I}nitialization \textbf{V}ector\\
+%j
+\textbf{JS} & \textbf{J}ava\textbf{S}cript\\
+\textbf{JSON} & \textbf{J}ava\textbf{S}cript \textbf{O}bject \textbf{N}otation\\
+\textbf{JWK} & \textbf{J}SON \textbf{W}eb \textbf{K}ey\\
+%k
+%l
+%m
+\textbf{MIME} & \textbf{M}ultipurpose \textbf{I}nternet \textbf{M}ail \textbf{E}xtensions\\
+\textbf{MITM} & \textbf{M}an \textbf{I}n \textbf{T}he \textbf{M}iddle\\
+%n
+\textbf{NAT} & \textbf{N}etwork \textbf{A}ddress \textbf{T}ranslation\\
+%o
+%p
+\textbf{PGP} & \textbf{P}retty \textbf{G}ood \textbf{P}rivacy\\
+\textbf{PKI} & \textbf{P}ublic \textbf{K}ey \textbf{I}nfrastructure\\
+\textbf{P2P} & \textbf{P}eer \textbf{T}(w)o \textbf{P}eer\\
+%q
+%r
+\textbf{RFC} & \textbf{R}equest \textbf{F}or \textbf{C}omments\\
+%s
+\textbf{SCTP} & \textbf{S}tream \textbf{C}ontrol \textbf{T}ransmission \textbf{P}rotocol\\
+\textbf{SDP} & \textbf{S}ession \textbf{D}escription \textbf{P}rotocol\\
+\textbf{S/MIME} & \textbf{S}ecure/ \textbf{M}ultipurpose \textbf{I}nternet \textbf{M}ail \textbf{E}xtensions\\
+\textbf{SMTP} & \textbf{S}imple \textbf{M}ail \textbf{T}ransfer \textbf{P}rotocol\\
+\textbf{SNS} & \textbf{S}ocial \textbf{N}etworking \textbf{S}ervice\\
+\textbf{SRTP} & \textbf{S}ecure \textbf{R}eal-time \textbf{T}ransport \textbf{P}rotocol\\
+\textbf{STUN} & \textbf{S}ession \textbf{T}raversal \textbf{U}tilities for \textbf{N}AT\\
+%t
+\textbf{TLS} & \textbf{T}ransport \textbf{L}ayer \textbf{S}ecurity\\
+\textbf{TURN} & \textbf{T}raversal \textbf{U}sing \textbf{R}elay \textbf{N}AT\\
+%u
+%v
+\textbf{VOIP} & \textbf{V}oice \textbf{O}ver \textbf{IP}\\
+%w
+\textbf{WebRTC} & \textbf{Web} \textbf{R}eal-\textbf{T}ime \textbf{C}ommunication\\
+\textbf{WS} & \textbf{W}eb\textbf{S}ockets\\
+%x
+\textbf{XSS} & \textbf{C}ross \textbf{S}ite \textbf{S}cripting\\
+%y
+%z
+\end{abbreviations}
+
+%----------------------------------------------------------------------------------------
+%	SYMBOLS
+%----------------------------------------------------------------------------------------
+
+%\begin{symbols}{lll} % Include a list of Symbols (a three column table)
+
+%$a$ & distance & \si{\meter} \\
+%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
+%Symbol & Name & Unit \\
+
+%\addlinespace % Gap to separate the Roman symbols from the Greek
+
+%$\omega$ & angular frequency & \si{\radian} \\
+
+%\end{symbols}
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+% Include the chapters of the thesis as separate files from the Chapters folder
+% Uncomment the lines as you write the chapters
+
+%\include{Chapters/Chapter1_ex}
+\include{Chapters/Chapter1}
+\include{Chapters/Chapter2}
+\include{Chapters/Chapter3}
+\include{Chapters/Chapter4}
+\include{Chapters/Chapter5}
+\include{Chapters/Chapter6}
+\include{Chapters/Chapter7}
+\include{Chapters/Chapter8}
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - APPENDICES
+%----------------------------------------------------------------------------------------
+
+\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
+
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+
+\include{Appendices/AppendixA}
+%\include{Appendices/AppendixB}
+%\include{Appendices/AppendixC}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc]
+
+%----------------------------------------------------------------------------------------
+
+\end{document}  

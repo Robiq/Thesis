@@ -1,0 +1,539 @@
+
+
+*******************************************************************************
+Tue Jun 26 17:46:32 2018
+
+
+FIT:    data read from '1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (-x*b)
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 3.3502814167e+04   0.00e+00  1.08e-02    1.000000e+00   1.000000e+00
+
+Current data point
+=========================
+#               = 1 out of 5
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 17:47:37 2018
+
+
+FIT:    data read from '1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 8
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (-x*b)
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 8
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 17:47:56 2018
+
+
+FIT:    data read from '1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 8
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (-x*b)
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 8
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 17:49:52 2018
+
+
+FIT:    data read from '1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 8
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a* exp(-x*b) + c
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 8
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+c               = 1              
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 17:49:55 2018
+
+
+FIT:    data read from '1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 8
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a* exp(-x*b) + c
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 8
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+c               = 1              
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 17:51:26 2018
+
+
+FIT:    data read from '1.txt' using 1:2
+        format = x:z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 8
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a* exp(-x*b) + c
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 8
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+c               = 1              
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 18:24:41 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a* exp(-x*b) + c
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 5
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+c               = 1              
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 18:37:24 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a* exp(-x*b) + c
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 5
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+c               = 1              
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 18:37:26 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a* exp(-x*b) + c
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 5
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 18:37:42 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (-x*b)
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 5
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 18:39:08 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (-x*b)
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 5
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 18:43:48 2018
+
+
+FIT:    data read from '1_1.txt' using 1:2
+        format = x:z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (-x*b)
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 5
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 18:44:02 2018
+
+
+FIT:    data read from '1_1.txt' using 1:2
+        format = x:z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (-x*b)
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 1 out of 5
+x               = 459.82         
+z               = 88             
+
+Current set of parameters
+=========================
+a               = 459.82         
+b               = -2287.38       
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 19:19:05 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (b*x)
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 1.9007315030e+264  0.00e+00  1.52e+134   8.756240e+01   9.993000e-01
+   1 3.9971412077e+263 -3.76e+05  1.52e+133   8.756175e+01   9.967013e-01
+
+The maximum lambda = 1.000000e+20 was exceeded. Fit stopped.
+final sum of squares of residuals : 3.99714e+263
+rel. change during last iteration : -3.75523
+
+degrees of freedom    (FIT_NDF)                        : 3
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 3.65018e+131
+variance of residuals (reduced chisquare) = WSSR/ndf   : 1.33238e+263
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 87.5617          +/- 1.141e+80    (1.303e+80%)
+b               = 0.996701         +/- 3.725e+75    (3.738e+77%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -1.000  1.000 
+
+
+*******************************************************************************
+Tue Jun 26 19:21:23 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (b*x)
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 3.9971412077e+263  0.00e+00  6.97e+133   8.756175e+01   9.967013e-01
+   1 8.4004205897e+262 -3.76e+05  6.97e+132   8.756109e+01   9.941015e-01
+
+The maximum lambda = 1.000000e+20 was exceeded. Fit stopped.
+final sum of squares of residuals : 8.40042e+262
+rel. change during last iteration : -3.75826
+
+degrees of freedom    (FIT_NDF)                        : 3
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.67336e+131
+variance of residuals (reduced chisquare) = WSSR/ndf   : 2.80014e+262
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 87.5611          +/- 7.142e+79    (8.156e+79%)
+b               = 0.994102         +/- 2.333e+75    (2.347e+77%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -1.000  1.000 
+
+
+*******************************************************************************
+Tue Jun 26 19:22:48 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (b-x)
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 3.3225944030e+04   0.00e+00  7.11e-01    8.756109e+01   9.941015e-01
+   4 2.5760000000e+04  -7.20e-02  7.11e-04    3.118907e+02   3.734688e+00
+
+After 4 iterations the fit converged.
+final sum of squares of residuals : 25760
+rel. change during last iteration : -7.20247e-07
+
+degrees of freedom    (FIT_NDF)                        : 3
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 92.6643
+variance of residuals (reduced chisquare) = WSSR/ndf   : 8586.67
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 311.891          +/- 1.598e+26    (5.124e+25%)
+b               = 3.73469          +/- 5.114e+23    (1.369e+25%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -1.000  1.000 
+
+
+*******************************************************************************
+Tue Jun 26 19:23:35 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (b*x)
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 5 out of 5
+x               = 311.891        
+z               = 72             
+
+Current set of parameters
+=========================
+a               = 311.891        
+b               = 3.73469        
+
+BREAK: Undefined value during function evaluation
+
+*******************************************************************************
+Tue Jun 26 19:23:42 2018
+
+
+FIT:    data read from '1_1.txt'
+        format = z
+        x range restricted to [0.00000 : 600.000]
+        #datapoints = 5
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a * exp (b*x)
+fitted parameters initialized with current variable values
+
+
+Current data point
+=========================
+#               = 5 out of 5
+x               = 311.891        
+z               = 72             
+
+Current set of parameters
+=========================
+a               = 311.891        
+b               = 3.73469        
+
+BREAK: Undefined value during function evaluation

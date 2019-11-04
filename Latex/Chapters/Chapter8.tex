@@ -1,0 +1,107 @@
+% Chapter 8
+%
+\chapter{Conclusion} % Main chapter title
+%
+\label{Chapter8} % For referencing the chapter elsewhere, use \ref{Chapter8} 
+% REDO WHEN UPDATING 
+This thesis has given an introduction to the current solutions available for file transfers, and reviewed the advantages and pitfalls of these solutions. Afterwards, the basic technology and principles of SendIt were explained. Then the general design and implementations were explained. After which it went through the specifics of each mode. Following, was a review of the experiments done and their contributions to the system, and an evaluation of SendIt and comparable systems. Finally, this chapter will summarize the work done and explore directions for future research.
+%
+\section{Summary}
+%
+This thesis has introduced a system and a prototype for improving the current situation of file transfers, focusing on e-mail attachments specifically. It did so by finding technology that fit well with the requirements, and by developing an alternative solution. In an effort to return to the original idea behind the Internet as a decentralized system, this thesis suggests a serverless system and shows a prototype of an implementation of such a system.
+
+A serverless implementation also follows the logical idea of file transfers as a transaction only between two end-nodes. There is no reason to involve a third party, unless absolutely necessary. In addition, it also reduces the cost of running services, since central servers do not need to be hosted or managed. The disadvantages of a serverless implementation is that there is no central management where one can access information easily, nor a central entity who can co-ordinate communication.
+%
+\paragraph{}
+%
+Since P2P technology allows us to avoid including a third party, this becomes the natural choice to use for the actual transfer of the files. While the usual way of creating P2P connections is by getting information from a server, or through DHT, SendIt suggests leaving it up to the users, since it will make the system more unpredictable, and as such harder to attack, while also allowing for easier use.
+
+Since this creates additional burden on the user, the Assisted Connection Setup mode was also developed. Endpoints send connection setup information to a server over secure WebSockets, which then relays it to the correct endpoint. While this does use a server, the server acts solely as a forwarding agent. Users can either use the default server, or host their own. An example of the default server will be available with the code and installation files for SendIt. This is mainly to cater to the inexperienced users who care more about usability than maximizing security. The opposite is true for the completely serverless version.
+
+An added benefit, and another reason for choosing P2P communication, was that it minimizes the attack surface of the application. Restricting the time of which the file, or metadata about the file, is available online greatly reduces the risk of an attacker gaining access to it.
+
+The contrast from the proposed system compared to regular solutions is enormous considering the fact that files are usually left on servers even after the transfer has completed, which leaves the information accessible for infinitely longer than with a direct solution. As such, the suggested system is a clear improvement, and has distinct advantages when it comes to reducing the attack surface of file transfers. The drawback of P2P is also the inherent advantage: It is synchronous communication. This means that it is up to developers to find ways to facilitate asynchronous transfers by other means, if such functionality is wanted.
+%
+\paragraph{}
+%
+When choosing how to implement these features, WebRTC came forward as the logical option, because of its inherent support for many of the desired features. It offers serverless connection setup, creates P2P connections, and also incorporates security functionality.  It offers authentication of peers, based on the Offer and Answer, and automatically encrypts the communications channel. It is also easy to deploy because it is a web technology, which means it can be used in an internet browser, making it easy to deploy and install.
+
+There are two drawbacks of using WebRTC. The first is that it offers no consistent way to reach or address endpoints, which means the connection setup has to be repeated every time a connection is to be made. The second is that there is no way to consistently identify or authenticate users. For the first issue, there are no easy remedies, the second can be solved by adding an additional identification and authentication scheme.
+%
+\paragraph{}
+%
+For such schemes, there are many options available. The most used scheme is public-key cryptography, and for good reason. As outlined in \Cref{sec:pkc}, it is a system for encryption and decryption that ensures confidentiality and integrity, while also being easy to manage. By associating each identity with a public key, the system guarantees that only the entity with the corresponding private key can access the information. This protects user privacy, as well as, making sure that it is not possible for attackers to see or manipulate the contents of the data.
+
+The downside of public-key cryptography is that it is hard to understand and manage correctly by people who are less technically capable. They have a hard time understanding the concept behind how it works, the difference between the two keys, and how to utilize it in practice. In the proposed system, this is taken care of programmatically and the users do not have to worry about such issues.
+
+It is important to use the correct key for the corresponding endpoint, in order for the encryption and decryption scheme to be useful. This is why identity management and trust is necessary. To be able to use public-key cryptography, users need to exchange keys and, only then, can data be encrypted.
+
+The exchange of keys is usually done through a trusted third party, in the form of a server. Since SendIt does not have a central server to rely on, the first connection, and with it the exchange of keys, is regarded as a trusted interaction. What this means is that the system assumes the information is correct and not being supplied by a malicious user. Afterwards, the system can guarantee all the benefits of public-key cryptography, but it relies on this first setup being correct. In order to reduce the risk of an attacker exploiting this, a trust system is suggested.
+
+The web of trust model allows users to re-evaluate and nuance their trust in endpoints. This gives a collective view of who is trustworthy and who is not, and can also help detect attackers trying to abuse the first trust. While this initial trust is detrimental to the security of the system, changing it would affect usability severely. As such, the system is built upon this first trust, with the web of trust model as a continuous evaluation to detect attackers, and to minimize the effect of potential attackers. It is possible to extend or change this functionality, if one so pleases, when using SendIt as a platform for further development.
+%
+\paragraph{}
+%
+These features create the basis for a reasonably secure system. In addition, the system is made to be as user friendly as possible. Installation is extremely easy, all that is required is downloading the installer and executing it. There are no options or dialogs during the installation. There is also no requirement to sign up, to do any key management, or any other aspects that may take focus away from the main goal: transferring files.
+
+The user only has to care about placing the files in the correct folder and initiating the transfer to the correct destination. In a similar fashion, when receiving files, all one has to do is decide whether to accept or decline such an offer. The functionality is clear and easy to use. The flow of the program is easy to follow, and requires little interaction from the user.
+
+Once the transfer is complete, the connection is automatically torn down and the user can start a new transfer. All of these features are there to make sure that people with low technical understanding can still get the benefit of using the system. The difficult, technical parts are automatically set up and taken care of for the user. Advanced users are also kept in mind, as they are allowed access to details about the system and can make changes in the settings window.
+%
+\paragraph{}
+%
+Comparing SendIt to existing solutions clearly illustrates the advantage of direct communication and the increase this yields in regards to protecting users security and privacy. It gives the user better control over where their data is, and also reduces the chance of an attacker gaining access to the data.
+
+Additionally, it requires no setup on the user side, and can be used directly after installation has finished. While other solutions have encryption and authentication, the systems used cannot be inspected by the user, and they can easily be tricked by false E2E encryption. This is not the case for SendIt as it can be easily inspected and managed. One can also easily switch identities, if desired, without having to create a new account or go through additional steps. This is in stark contrast to the comparative solutions.
+%
+\paragraph{}
+%
+The contributions of this thesis can be summed up as a user-friendly system that allows for direct, secure file transfers. SendIt can also serve as a platform to expand for a wide range of functionality and services. SendIt, as a platform, would likely be used for it's identity management and authentication functionality, not the file transfer functionality. While this is one potential use case, another can be adding more functionality to the file transfer aspect. This would allow it to become more of a complete solution that could function as a stand alone system, instead of a complimentary one.
+
+It also contributes to exploring new implementations of e-mail attachments. The serverless functionality also opens for a new way of software developing, and contributes and encourages a break with the current server-based development. Finally, it shows that secure solutions do not necessarily have to be hard to use and incentivizes development of more user-friendly security applications.
+%
+\paragraph{}
+%
+\textbf{In conclusion:} This thesis introduced a system that improves the current implementation of e-mail attachments. It does so by directly transferring files, lowering the attack surface significantly. It also guarantees end-to-end encryption and endpoint authentication (\emph{based on the key exchange done as part of the first connection}), which is not commonly used for e-mail attachments, making it resistant to both active and passive attacks. It achieves this while keeping the system easy to use, by taking care of key management and authentication on behalf of the user, without the need for any setup or central corroboration. SendIt outperforms e-mail attachments in regards to security, as well as usability, and cost efficiency. The drawbacks of SendIt are the limitation of only supporting synchronous transfers, as well as, it's inherent trust in the first connection.
+%
+\section{Future work}
+%
+There are still many venues and ways of improvement for systems such as SendIt, and e-mail attachments in general. By separating future work into two sections, it is easier to get a clear view of which improvements are necessary for SendIt, and what changes are needed in regards to e-mail attachments in general.
+
+SendIt has the core features and design developed, but since it has been a one person job, the depth and complexity has been limited. With more time or more manpower, many of the issues currently existing can be fixed, and a complete alternative to the current e-mail attachment functionality can be finalized. As such, the future research for SendIt focuses more on implementations and testing of the system.
+
+For e-mail attachments in general, a more holistic approach is taken in regards to future work. Things like large scale evaluation and system design become more important and need to be prioritized more than when designing a simpler system.
+%
+\subsection{SendIt}
+%
+The following topics can be future research for the development for SendIt:
+\begin{itemize}
+	\item \textbf{Developing and testing extendability of the connection setup for the Serverless mode.} Adding to the lifetime of the connection setup would greatly increase the usability and reliability of this mode. Adding some kind of connection-manager or middleware was considered as part of this research, but could not be done in time.
+	%
+	\item \textbf{Improving reliability of connections and connection setup.} In conjunction with the point above, increasing the success rate of the connection setup would make the system more reliable and easier to use. Making sure connections are stable and do not disconnect will help the usability and stability of the system.
+	%
+	\item \textbf{Exploring more ways to evaluate trust.} Testing, implementing, and comparing different systems in practice, as well as finding an algorithm for evaluation. This work would add great value to the trust management of SendIt.
+	%
+	\item \textbf{Improve the initial trust.} Finding a way to increase the trust in the first connection, or some way of authentication that does not rely on a central service, would be a big improvement. In addition, allowing for sharing keys across applications may also be a way to bridge this initial trust issue. Such problems are left up to future research.
+	%
+	\item \textbf{Adding support for pausing transfers.} Having a way to pause transfers should be easy to implement, and will benefit the system greatly. Especially for big transfers, this will allow users to take breaks temporarily, if needed.
+	%
+	\item \textbf{Checking overhead of the file transfer and optimizing the protocol.} Optimizing the speed of the file transfer, as well as, minimizing the overhead of the protocol, will ensure that the communication is as effective as possible. This would allow for shorter transfer-times, less data transferred, and higher efficiency.
+	%
+	%\item Finalize protocol and ACS server. Completing this work will add extra trust to the system and help make the key exchange go smoothly. While this is not critical to the system in any way, it would make for an increase in security and improve the trust in an identity.
+\end{itemize}
+%
+\subsection{E-mail attachments}
+%
+The following topics can be future research for e-mail attachments and how to improve the current system:
+\begin{itemize}
+	\item \textbf{Finding a better way to asynchronously transfer files.} Any improvement to the way e-mail attachments currently work would be a welcome contribution, but particularly an improvement to user privacy is necessary. Avoiding server-storage would be optimal, but finding a way to ensure that the file does not reside on the server after the message has been transferred would be an acceptable compromise.
+	%
+	\item \textbf{Exploring other systems and alternatives to SendIt.} Evaluating their usability and functionality. By doing this, one can clearly indicate which solution is optimal, and recommend a new standard which can be adopted by e-mail clients.
+	%
+	\item \textbf{Creating alternative solutions to complement SendIt.} As mentioned in the introduction (\Cref{Chapter1}), replacing the current email attachment system with SendIt alone is not recommended. Developing a complementary system to SendIt, which in combination can be implemented to completely replace the current system, would go a long way towards improving the current situation.
+\end{itemize}
+%
+\section{Final remarks}
+%
+As a final note, I would like to add that the source code for both SendIt and the ACS server will be made available \href{https://github.com/Robiq}{on github}\footnote{\href{https://github.com/Robiq}{https://github.com/Robiq}} once it has been cleared for release. I hope it will be developed further, and that it can succeed as an open source application that provides improved security and privacy for everyone.
